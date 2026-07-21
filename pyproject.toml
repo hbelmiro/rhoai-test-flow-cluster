@@ -1,0 +1,25 @@
+[project]
+name = "rhoai-test-flow-cluster"
+version = "0.1.0"
+description = "Trigger and monitor Jenkins rhoai-test-flow builds to provision OpenShift clusters"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = []
+
+[dependency-groups]
+lint = ["ruff", "ty", "yamllint"]
+test = ["pytest"]
+security = ["pip-audit"]
+git-hooks = ["pre-commit"]
+dev = [
+    {include-group = "lint"},
+    {include-group = "test"},
+    {include-group = "security"},
+    {include-group = "git-hooks"},
+]
+
+[tool.ruff]
+target-version = "py314"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

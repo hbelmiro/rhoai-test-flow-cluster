@@ -1,0 +1,30 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff
+        entry: uv run ruff check --fix
+        language: system
+        types: [python]
+      - id: ruff-format
+        name: ruff-format
+        entry: uv run ruff format
+        language: system
+        types: [python]
+      - id: ty
+        name: ty
+        entry: uv run ty check .
+        language: system
+        types: [python]
+        pass_filenames: false
+      - id: yamllint
+        name: yamllint
+        entry: bash
+        args:
+          - '-c'
+          - >-
+            find . -path "./.venv" -prune -o -path "./.git" -prune -o
+            \( -name "*.yml" -o -name "*.yaml" \) -print |
+            xargs uv run yamllint -c .yamllint.yml
+        language: system
+        pass_filenames: false
